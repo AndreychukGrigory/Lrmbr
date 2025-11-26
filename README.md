@@ -18,5 +18,17 @@
 # Лабораторная работа №2
 Фаззинг-тестирование
 1. Установка зависимостей
-```  sudo apt update
+```
+sudo apt update
 sudo apt install build-essential clang llvm-dev libstdc++-dev -y
+```
+2. Клонирование репозитория
+```
+git clone https://github.com/AFLplusplus/AFLplusplus.git
+cd AFLplusplus
+```
+3. Компиляция и установка
+```
+make all
+sudo make install
+```
