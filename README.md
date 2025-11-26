@@ -72,6 +72,68 @@ sudo /home/grigory/security_lab/AFLplusplus/afl-fuzz -D -i in -o out -- ./fuzzed
 
 ![Конец фаззинга](Screenshot_7.png)
 
+После фаззинга можно просмотреть текстовый отчёт тестирования
+```
+sudo cat ~/security_lab/perl_fuzzing/out/default/fuzzer_stats     
+```
+```
+start_time        : 1764163864
+last_update       : 1764164179
+run_time          : 314
+fuzzer_pid        : 257881
+cycles_done       : 107
+cycles_wo_finds   : 107
+time_wo_finds     : 0
+fuzz_time         : 314
+calibration_time  : 0
+cmplog_time       : 0
+sync_time         : 0
+trim_time         : 0
+execs_done        : 53666
+execs_per_sec     : 170.56
+execs_ps_last_min : 175.05
+corpus_count      : 3
+corpus_favored    : 1
+corpus_found      : 0
+corpus_imported   : 0
+corpus_variable   : 0
+max_depth         : 1
+cur_item          : 2
+pending_favs      : 0
+pending_total     : 0
+stability         : 100.00%
+bitmap_cvg        : 20.00%
+saved_crashes     : 0
+saved_hangs       : 0
+total_tmout       : 1
+last_find         : 0
+last_crash        : 0
+last_hang         : 0
+execs_since_crash : 53666
+exec_timeout      : 40
+slowest_exec_ms   : 0
+peak_rss_mb       : 6
+cpu_affinity      : 0
+edges_found       : 2
+total_edges       : 10
+var_byte_count    : 0
+havoc_expansion   : 5
+auto_dict_entries : 0
+testcache_size    : 38
+testcache_count   : 3
+testcache_evict   : 0
+afl_banner        : ...y/security_lab/perl_fuzzing/fuzzed_perl
+afl_version       : ++4.35a
+target_mode       : shmem_testcase default
+command_line      : /home/grigory/security_lab/AFLplusplus/afl-fuzz -i in -o out -- /home/grigory/security_lab/perl_fuzzing/fuzzed_perl @@
+
+```
 # Вывод
 В данной лабораторной работе была решена задача фаззинг-тестирования приложения, написанного на интерпретируемом языке Perl. С помощью инструмента AFL++ и специально написанной программы-обертки на языке C удалось подать на вход скрипта множество мутированных данных. Тестирование показало устойчивость скрипта: за время работы фаззера аварийных завершений (crashes) зафиксировано не было. Также были изучены ограничения метода "черного ящика" (Dumb Fuzzing), который, не имея доступа к внутренней структуре Perl-скрипта, проводит поверхностное, но быстрое тестирование на отказ в обслуживании и ошибки валидации ввода.
 
+# Лабораторная работа №3
+Сбор покрытия
+Каталог queue содержит корпус входных данных, которые фаззер счел уникальными или интересными (они обеспечили максимальное покрытие путей в C-обертке).
+```
+sudo ls -l ~/security_lab/perl_fuzzing/out/default/queue
+```
