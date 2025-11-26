@@ -17,3 +17,6 @@
 
 # Лабораторная работа №2
 Фаззинг-тестирование
+1. Установка зависимостей
+```  sudo apt update
+sudo apt install build-essential clang llvm-dev libstdc++-dev -y
