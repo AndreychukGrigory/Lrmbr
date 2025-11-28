@@ -1,6 +1,38 @@
+# Подготовка среды kali linux#
+1. Установим необходимые инструменты.
+```
+sudo apt update
+sudo apt install -y build-essential clang llvm gcc make git wget
+```
+2. Скачивание Perl
+Создадим папку для работы и перейдём в неё
+```
+cd ~
+mkdir perl_fuzzing
+cd perl_fuzzing
+```
+И скачаем исходники Perl
+```
+wget https://www.cpan.org/src/5.0/perl-5.38.2.tar.gz
+tar -xzvf perl-5.38.2.tar.gz
+cd perl-5.38.2
+```
 # Лабораторная работа №1 
 Расчёт контрольной суммы
-1. Создаём скрипт perl
+
+Выполним команду для подсчёта контрольной суммы всех сурс файлов отдельно друг от друга и учтём, что подсчет контрольных сумм производился непосредственно в рабочем каталоге после фаззинг-тестирования и сбора покрытия, поэтому исключим все сгенерированные временные файлы и выходные данные.
+```
+find . -type f \
+  -not -path "./out/*" \
+  -not -path "./in/*" \
+  -not -path "./coverage_inputs/*" \
+  -not -path "./coverage_report/*" \
+  -not -name "*.gcda" \
+  -not -name "*.gcno" \
+  -not -name "coverage.info" \
+  -exec sha256sum {} + > checksums.txt
+```
+После выполнения команды получаем текстовый файл checksums.txt **[Посмотреть полный список контрольных сумм (checksums.txt)](./checksums.txt)**
 
 ![Скрипт perl](2.png)
 2. Прописываем в терминале команду sha256sum script.pl
