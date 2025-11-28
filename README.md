@@ -33,7 +33,7 @@ find . -type f \
   -not -name "coverage.info" \
   -exec sha256sum {} + > checksums.txt
 ```
-После выполнения команды получаем текстовый файл checksums.txt **[(checksums.txt)](./checksums.txt)**
+После выполнения команды получаем текстовый файл **[(checksums.txt)](./checksums.txt)**
 
 ![Скрипт perl](2.png)
 2. Прописываем в терминале команду sha256sum script.pl
