@@ -163,7 +163,7 @@ make clean
 
 2. Настройка (Configure) с флагами GCC + сборка
 ```
-./Configure -des -Dcc='gcc -fprofile-arcs -ftest-coverage' -Dprefix=$(pwd)/installed_coverage
+./Configure -des -Dcc='gcc -fprofile-arcs -ftest-coverage' -Dlddlflags='-shared -fPIC -lgcov' -Dprefix=$(pwd)/installed_coverage
 make -j$(nproc)
 ```
 3. Запуск покрытия
@@ -180,5 +180,28 @@ cp -r out/default/hangs/id:* coverage_inputs/
 
 Нам нужно выполнить скомпилированный Perl для каждого файла из папки coverage_inputs. Это создаст файлы с расширениями .gcda и .gcno, которые содержат данные покрытия.
 Этот скрипт может занять некоторое время, поскольку нужно выполнить тысячи файлов, поэтому выполним её в ограниченном формате (~45 минут).
+```
+for input_file in coverage_inputs/*; do
+    ./perl "$input_file" > /dev/null 2>&1
+done
+```
+
+4. Генерация отчёта LCOV
+
+- Создаём файл с данными LCOV
+```
+lcov -c -d . -o coverage.info
+```
+
+- Очищаем данные (Удаление системных и внешних библиотек, которые не являются частью исходного кода Perl)
+```
+lcov --remove coverage.info '/usr/*' -o coverage_final.info
+```
+
+- Просмотр отчёта
+```
+firefox coverage_report/index.html &
+```
+
 # Вывод
 Высокое покрытие функций подтверждает, что вся логика C-обертки была активирована, а покрытие строк, превышающее половину, доказывает успешный прогон кода. Непокрытые строки соответствуют коду обработки исключений, который не был выполнен при успешном запуске Perl-скрипта.
