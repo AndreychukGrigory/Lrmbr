@@ -1,10 +1,11 @@
-# Подготовка среды kali linux#
+# Подготовка среды kali linux 
 1. Установим необходимые инструменты.
 ```
 sudo apt update
 sudo apt install -y build-essential clang llvm gcc make git wget
 ```
 2. Скачивание Perl
+
 Создадим папку для работы и перейдём в неё
 ```
 cd ~
