@@ -3,9 +3,6 @@
 ```
 sudo apt update
 sudo apt install -y build-essential clang llvm gcc make git wget
-```
-```
-sudo apt update
 sudo apt install -y build-essential clang llvm libtool autoconf automake python3 python3-dev
 ```
 2. Скачивание Perl
